@@ -1,0 +1,2 @@
+personality-text-summary 2.1.x
+node-red-contrib-audio 1.0.x

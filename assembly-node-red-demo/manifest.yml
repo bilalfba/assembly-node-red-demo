@@ -1,0 +1,14 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: assembly-node-red
+  host: assembly-node-red
+  disk_quota: 1024M
+  services:
+  - node-red-tts
+  - node-red-tone
+  - node-red-stt
+  - node-red-personality
+  - assembly-node-red-cloudantNoSQLDB

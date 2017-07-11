@@ -1,0 +1,3 @@
+functionGlobalContext: {
+    PersonalitySummary:require('personality-text-summary')
+}

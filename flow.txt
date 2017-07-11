@@ -1,0 +1,232 @@
+[
+    {
+        "id": "65c49cc4.90f954",
+        "type": "http in",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "http request",
+        "url": "/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "5936c587.6b2e6c",
+                "9315f034.5445e"
+            ]
+        ]
+    },
+    {
+        "id": "6c70b797.f36e78",
+        "type": "http response",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 423,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "5936c587.6b2e6c",
+        "type": "template",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "UI",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<html>\n      <head>\n            <title>Node Red Watson Demo</title>\n      </head>\n      <body>\n            <div>Hello to Watson on Node-RED Demo</div>\n            <div>Audio file obtained from <a href =\"https://raw.githubusercontent.com/watson-developer-cloud/speech-to-text-nodejs/master/public/audio/en-US_Broadband_sample1.wav\">here</a></div>\n            <div>Conversion to text started, it will then be passed to personality insight and tone analyzer. You will hear the result shortly.\n            </div>\n      </body>\n</html>",
+        "output": "str",
+        "x": 276,
+        "y": 192,
+        "wires": [
+            [
+                "6c70b797.f36e78"
+            ]
+        ]
+    },
+    {
+        "id": "9967a2c3.0cf83",
+        "type": "watson-speech-to-text",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "continuous": true,
+        "speakerlabels": true,
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "NoCustomisationSetting",
+        "band": "BroadbandModel",
+        "bandhidden": "BroadbandModel",
+        "password": "\"cc4IBM1",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "https://stream.watsonplatform.net/speech-to-text/api",
+        "x": 297.5,
+        "y": 395,
+        "wires": [
+            [
+                "8bc581ac.b89e6",
+                "d5d8a042.ac1d1",
+                "928d4f8b.dbae8"
+            ]
+        ]
+    },
+    {
+        "id": "8bc581ac.b89e6",
+        "type": "debug",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 490,
+        "y": 396,
+        "wires": []
+    },
+    {
+        "id": "d5d8a042.ac1d1",
+        "type": "watson-personality-insights-v3",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "inputlang": "en",
+        "outputlang": "en",
+        "rawscores": false,
+        "consumption": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/personality-insights/api",
+        "x": 508.5,
+        "y": 358,
+        "wires": [
+            [
+                "16ac2b3.00149d5",
+                "256fa070.81c75"
+            ]
+        ]
+    },
+    {
+        "id": "928d4f8b.dbae8",
+        "type": "watson-tone-analyzer-v3",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "tones": "all",
+        "sentences": "true",
+        "contentType": "false",
+        "tone-method": "generalTone",
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/tone-analyzer/api",
+        "x": 500.5,
+        "y": 433,
+        "wires": [
+            [
+                "706797fe.3ee138",
+                "256fa070.81c75"
+            ]
+        ]
+    },
+    {
+        "id": "16ac2b3.00149d5",
+        "type": "debug",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "insights",
+        "x": 716.5,
+        "y": 323,
+        "wires": []
+    },
+    {
+        "id": "706797fe.3ee138",
+        "type": "debug",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "response",
+        "x": 715.5,
+        "y": 464,
+        "wires": []
+    },
+    {
+        "id": "9315f034.5445e",
+        "type": "function",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "inject audio",
+        "func": "msg.payload = \"https://raw.githubusercontent.com/watson-developer-cloud/speech-to-text-nodejs/master/public/audio/en-US_Broadband_sample1.wav\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 286.5,
+        "y": 284,
+        "wires": [
+            [
+                "9967a2c3.0cf83"
+            ]
+        ]
+    },
+    {
+        "id": "1acce80a.c7c148",
+        "type": "watson-text-to-speech",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "NoCustomisationSetting",
+        "voice": "en-US_MichaelVoice",
+        "voicehidden": "",
+        "format": "audio/wav",
+        "password": "",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "https://stream.watsonplatform.net/text-to-speech/api",
+        "x": 973.5,
+        "y": 393,
+        "wires": [
+            [
+                "14c26df8.de3922"
+            ]
+        ]
+    },
+    {
+        "id": "140bf70d.c2bf59",
+        "type": "debug",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 968.5,
+        "y": 341,
+        "wires": []
+    },
+    {
+        "id": "256fa070.81c75",
+        "type": "function",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "prepare summary",
+        "func": "var PersonalityTextSummaries = global.get('PersonalitySummary');\n\n// locale is one of {'en', 'es', 'ja'}.  version refers to which version of Watson Personality Insights to use, v2 or v3.\nvar v3EnglishTextSummaries = new PersonalityTextSummaries({ locale: 'en', version: 'v3' });\n\n// retrieve the summary for a specified personality profile (json)\nvar textSummary  = v3EnglishTextSummaries.getSummary(msg.insights);\n\nmsg.payload = textSummary;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 746.5,
+        "y": 393,
+        "wires": [
+            [
+                "1acce80a.c7c148",
+                "140bf70d.c2bf59"
+            ]
+        ]
+    },
+    {
+        "id": "14c26df8.de3922",
+        "type": "play audio",
+        "z": "1a9c0cf4.d6a9d3",
+        "name": "",
+        "voice": "",
+        "x": 1188,
+        "y": 392,
+        "wires": []
+    }
+]
