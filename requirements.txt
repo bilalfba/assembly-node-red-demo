@@ -1,2 +1,2 @@
-personality-text-summary 2.1.x
-node-red-contrib-audio 1.0.x
+"personality-text-summary":"2.1.x",
+"node-red-contrib-play-audio":"1.0.x"

@@ -1,4 +1,4 @@
-Node-RED Bluemix Demo for the Assembly Workshop on STT/TSS, Personality Inshights, and Tone Analyzer 
+Node-RED Bluemix Demo for the Assembly Workshop on STT/TSS, Personality Insights, and Tone Analyzer 
 ====================================
 
 ## Node-RED in IBM Bluemix
